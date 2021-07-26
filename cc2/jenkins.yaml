@@ -1,3 +1,13 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          description: "login username and password for github"
+          id: "githublogin"
+          password: "{AQAAABAAAAAwNEHnoux6FKu0UDj39WfB4ApoTKyMmp9RkmM4pUGpHYPfol4b864f9w2Ww7w2LUTpF6IMrUFMe8X5PwKFhSmnuQ==}"
+          scope: GLOBAL
+          username: "LBenkel"
 jenkins:
   agentProtocols:
   - "Diagnostic-Ping"
@@ -28,20 +38,25 @@ jenkins:
     enabled: true
   scmCheckoutRetryCount: 0
   securityRealm: "operationsCenter"
-  slaveAgentPort: -1
+  slaveAgentPort: 50000
   updateCenter:
     sites:
-    - id: "core-cm-offline"
-      url: "file:/var/cache/cloudbees-core-cm/war/WEB-INF/plugins/update-center.json"
-    - id: "cap-core-cm"
-      url: "https://jenkins-updates.cloudbees.com/update-center/envelope-core-cm/update-center.json"
+    - id: "core-mm-offline"
+      url: "file:/tmp/jenkins/war/WEB-INF/plugins/update-center.json"
+    - id: "cap-core-mm"
+      url: "https://jenkins-updates.cloudbees.com/update-center/envelope-core-mm/update-center.json"
   views:
   - all:
       name: "all"
   viewsTabBar: "standard"
+esr:
+  configuration:
+    enabled: true
+    feederUrl: "https://i-o-optimized-deployment-3a0e2e.es.us-west1.gcp.cloud.es.io:9243"
+    submissionPeriodSeconds: 10
 advisor:
   acceptToS: true
-  email: "dpope@cloudbees.com"
+  email: "lindsay.benkel@gmail.com"
   excludedComponents:
   - "AgentsSystemConfiguration"
   - "AgentsJVMProcessSystemMetricsContents"
@@ -53,7 +68,7 @@ advisor:
   - "OtherConfigFilesComponent"
   - "HeapUsageHistogram"
   - "OtherLogs"
-  nagDisabled: true
+  nagDisabled: false
 beekeeper:
   enabled: true
   securityWarnings:
@@ -97,7 +112,7 @@ unclassified:
     defaultTriggerIds:
     - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
     mailAccount:
-      smtpHost: "smtp6.bar.com"
+      smtpHost: "smtp.example.com"
     maxAttachmentSize: -1
     maxAttachmentSizeMb: -1
     precedenceBulk: false
@@ -110,9 +125,8 @@ unclassified:
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
-    hookUrl: "http://cc2:8080/github-webhook/"
+    hookUrl: "https://cbci.cloudbees.demo/master02/github-webhook/"
   gitSCM:
-    addGitTagAction: false
     allowSecondFetch: false
     createAccountBasedOnEmail: false
     disableGitToolChooser: false
@@ -129,40 +143,26 @@ unclassified:
         modernSCM:
           scm:
             git:
-              remote: "https://github.com/darinpope/github-api-global-lib.git"
+              credentialsId: "githublogin"
+              remote: "https://github.com/LBenkel/github-api-global-lib.git"
               traits:
               - "gitBranchDiscovery"
-  hAGlobalConfiguration:
-    bindPort: 0
-    diagnosticPort: 0
-    portRange: 0
   junitTestResultStorage:
     storage: "file"
   location:
-    adminAddress: "Darin Pope <dpope+test1@cloudbees.com>"
-    url: "http://cc2:8080/"
+    adminAddress: "Lindsay Benkel <lindsay.benkel@cloudbees.com>"
+    url: "https://cbci.cloudbees.demo/master02/"
   mailer:
     charset: "UTF-8"
-    smtpHost: "smtp6.bar.com"
+    smtpHost: "smtp.example.com"
     useSsl: false
     useTls: false
-  operationsCenterRootAction:
-    connectionDetails: |-
-      ----- BEGIN CONNECTION DETAILS -----
-      H4sIAAAAAAAAAA2MQQ6DIBBF7zJrJ8AAKXINT8BMoTUaNYrpoundO2/3Xn7+F15n2TpkaNYxSXpg
-      4dFjIBFk7xLaQC1wioGihwHmp24dipDKfa5q796PbMwuOSlG+6fytMtS9beV9aq/P+1WqvhnAAAA
-      ----- END CONNECTION DETAILS -----
   pollSCM:
     pollingThreadCount: 10
   usageStatisticsCloudBees:
     usageStatisticsCollected: true
 tool:
-  cloudbeesPluginUsageAnalyzer:
-    enabled: true
   git:
     installations:
     - home: "git"
       name: "Default"
-  mavenGlobalConfig:
-    globalSettingsProvider: "standard"
-    settingsProvider: "standard"
